@@ -1,0 +1,1 @@
+#define CORRUPTION_RATIO 0.001
