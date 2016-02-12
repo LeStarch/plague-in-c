@@ -2,12 +2,12 @@
 //local headers
 #include <constants.h>
 #include <dumby.h>
-
+#include <stdio.h>
 double randomD();
 unsigned long randomL(unsigned long bound);
 
 
-extern unsigned char stext,etext;
+extern unsigned char _start,_etext;
 
 /**
  * Wraps the fork call
@@ -15,12 +15,14 @@ extern unsigned char stext,etext;
  */
 pid_t __wrap_fork()
 {
+    printf("Running\n");
     int ret = __real_fork();
     //Corrupt the children
     double d = randomD();
     if (ret == 0 && d <= CORRUPTION_RATIO)
     {
-        unsigned char* addr = randomL(&etext - &stext) + &stext;
+        printf("Running child\n");
+        unsigned char* addr = randomL(&_etext - &_start) + &_start;
         *addr = randomL(256);
     }
     return ret;

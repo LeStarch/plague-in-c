@@ -9,5 +9,5 @@
 int main(int argc, char** argv)
 {
     srand(time(NULL));
-    __wrap_fork();
+    fork();
 }

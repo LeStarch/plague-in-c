@@ -1,6 +1,6 @@
 all: obj/plague.o obj/override.o
 	mkdir -p bin
-	ld obj/plague.o obj/override.o --wrap fork -o bin/ro-tmp
+	gcc -Wl,--wrap,fork  obj/plague.o obj/override.o -o bin/ro-tmp
 	objcopy --writable-text bin/ro-tmp bin/plague
 obj/plague.o: src/plague.c
 	mkdir -p obj
